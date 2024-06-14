@@ -6,10 +6,10 @@
 #define WIFI_PASSWORD "0806040200"
 #define WIFI_CHANNEL 6
 
-#define SERVER_URL = "https://0cd5w308ynnj.share.zrok.io";
+#define SERVER_URL "https://0cd5w308ynnj.share.zrok.io"
 
-#define DHTPIN	4
-#define DHTTYPE	DHT11
+#define DHTPIN  4
+#define DHTTYPE DHT11
 
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -45,17 +45,17 @@ void loop() {
     }
   }
 
-  // Mengirim data ke server
+  // Mengirim data ke server Flask
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     http.begin(SERVER_URL);
     http.addHeader("Content-Type", "application/json");
-    
+
     // Membuat JSON untuk dikirim
     String httpRequestData =
-	"{'temperature':'" + String(temperature)
-        + "', 'humidity':'" + String(humidity) + "'}";
-    
+        "{\"suhu\":\"" + String(temperature)
+        + "\",\"kelembaban\":\"" + String(humidity) + "\"}";
+
     int httpResponseCode = http.POST(httpRequestData);
 
     // Cetak kode respons HTTP
